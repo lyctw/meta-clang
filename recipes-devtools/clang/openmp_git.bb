@@ -14,6 +14,10 @@ LIC_FILES_CHKSUM = "file://openmp/LICENSE.TXT;md5=d75288d1ce0450b28b8d58a284c09c
 
 inherit cmake pkgconfig perlnative python3native python3targetconfig
 
+SRC_URI += "\
+    file://0029-OpenMP-link-fix.patch \
+"
+
 DEPENDS += "elfutils libffi clang"
 
 EXTRA_OECMAKE += "-DCMAKE_BUILD_TYPE=RelWithDebInfo \

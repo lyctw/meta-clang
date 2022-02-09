@@ -1,0 +1,25 @@
+From cf2af711e539db6a50748653216f44710a2104fc Mon Sep 17 00:00:00 2001
+From: Kas User <kas@example.com>
+Date: Fri, 18 Aug 2023 11:29:41 +0000
+Subject: [PATCH] OpenMP link fix
+
+---
+ openmp/runtime/src/CMakeLists.txt | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/openmp/runtime/src/CMakeLists.txt b/openmp/runtime/src/CMakeLists.txt
+index df1ca9d9088b..c95477499d91 100644
+--- a/openmp/runtime/src/CMakeLists.txt
++++ b/openmp/runtime/src/CMakeLists.txt
+@@ -151,7 +151,7 @@ libomp_get_libflags(LIBOMP_CONFIGURED_LIBFLAGS)
+ if(OPENMP_STANDALONE_BUILD OR (NOT OPENMP_ENABLE_LIBOMP_PROFILING))
+   add_library(omp ${LIBOMP_LIBRARY_KIND} ${LIBOMP_SOURCE_FILES})
+   # Linking command will include libraries in LIBOMP_CONFIGURED_LIBFLAGS
+-  target_link_libraries(omp ${LIBOMP_CONFIGURED_LIBFLAGS} ${LIBOMP_DL_LIBS})
++  target_link_libraries(omp ${LIBOMP_CONFIGURED_LIBFLAGS} ${LIBOMP_DL_LIBS} "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/exports_so.txt")
+ else()
+   add_llvm_library(omp ${LIBOMP_LIBRARY_KIND} ${LIBOMP_SOURCE_FILES} PARTIAL_SOURCES_INTENDED
+     LINK_LIBS ${LIBOMP_CONFIGURED_LIBFLAGS} ${LIBOMP_DL_LIBS}
+-- 
+2.30.2
+
